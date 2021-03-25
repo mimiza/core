@@ -3,24 +3,29 @@ document.addEventListener("DOMContentLoaded", (e) => {
 })
 
 const render = () => {
+    // set head
     head()
-    const links = document.body.querySelectorAll("[href][data-link]")
-
-    // links.map(e => {
-    //     e.addEventListener('click', e => {
-    //         e.preventDefault()
-    //         console.log('link clicked', e, this)
-    //     })
-    // })
+    
+    // check all link clicks before redirect
+    Array.from(document.body.querySelectorAll("[href][data-link]")).map(e => {
+        e.addEventListener('click', e => {
+            e.preventDefault()
+            console.log('link clicked', e, this)
+        })
+    })
 }
 
+// set head
 const head = () => {
+    // set charset to UTF-8
     if (!document.head.querySelector("meta[charset]")) {
         var tmp = document.createElement("meta")
         tmp.setAttribute("charset", "UTF-8")
-        document.head.append(tmp)
+        document.head.prepend(tmp)
     }
-    if (!document.head.querySelector("meta[viewport]")) {
+    
+    // make the website responsive to different devices
+    if (!document.head.querySelector("meta[name=viewport]")) {
         var tmp = document.createElement("meta")
         Object.assign(tmp, {
             name: "viewport",
