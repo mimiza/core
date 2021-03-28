@@ -1,5 +1,5 @@
-# The Vanilla Project
-A set of Vanilla JS libraries for building modern web apps.
+# The Core Project
+A set of Vanilla JS core libraries for building modern web apps.
 
 # Key features
 - ES6
