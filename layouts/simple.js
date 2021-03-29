@@ -6,12 +6,7 @@ customElements.define(
         connectedCallback() {
             this.innerHTML = `
             <menu-component/>
-        `
-            this.querySelector("menu-component").data = [
-                { path: "/tests/en/" },
-                { path: "/wrongway/" },
-                { path: "/tests/" },
-            ]
+            `
         }
     }
 )
