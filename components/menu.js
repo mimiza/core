@@ -8,11 +8,9 @@ customElements.define('menu-component', class extends Component {
         return ''
     }
 
-    render() {
-        return `
-        <nav>
-        ${this.createMenu(this.state?.data)}
-        </nav>
-        `
-    }
+    template = `
+    <nav>
+    ${this.createMenu(this.state?.data)}
+    </nav>
+    `
 })

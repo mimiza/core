@@ -32,6 +32,7 @@ export default class Component extends HTMLElement {
     }
 
     render(content = '') {
-        return content.html()
+        const template = this?.template?.() || this?.template || content
+        return template?.html?.()
     }
 }
