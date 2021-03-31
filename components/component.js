@@ -2,16 +2,20 @@ import { context } from "../framework.js"
 
 export default class Component extends HTMLElement {
     constructor() {
-        super().attachShadow({
+        super()
+        this.attachShadow({
             mode: "open",
         })
-
-        addEventListener("context", e => {
-            console.log("context", e.detail, this.context, context)
-        })
-
         this._state = {}
         this._context = context
+    }
+
+    connectedCallback() {
+        this.update()
+        this.addEventListener("context", e => {
+            console.log("context", e.detail, this.context, context)
+        })
+        console.log(this)
     }
 
     get context() {
@@ -37,8 +41,14 @@ export default class Component extends HTMLElement {
     }
 
     set template(content) {
+        this._template = content || this._template
+        this.update()
+        return content
+    }
+
+    update() {
         const template = document.createElement("template")
-        template.innerHTML = this._template = content
+        template.innerHTML = this.template
         this.shadowRoot.replaceChildren(template.content.cloneNode(true))
     }
 }
