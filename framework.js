@@ -40,10 +40,11 @@ export const setContext = (data = {}) => {
     return context
 }
 
-export const html = (content = '') => {
-    console.log('yee', content)
+export function html(content = '') {
     const parser = new DOMParser()
     return parser.parseFromString(content, 'text/html').body
 }
 
-String.prototype.html = html
+String.prototype.html = function() {
+    return html(this)
+}

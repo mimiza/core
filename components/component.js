@@ -8,31 +8,30 @@ export default class Component extends HTMLElement {
         this.attachShadow({
             mode: 'open'
         })
-
-        this.state = {}
-        this.context = context
-    }
-
-    connectedCallback() {
-        const html = this?.render?.()
-        console.log('com cb', html)
-        this.shadowRoot.replaceChildren(this?.render?.()?.html?.()?.cloneNode(true))
-        this.shadowRoot.addEventListener('context', function (e) {
+        this.addEventListener('context', function (e) {
             console.log('context', e.detail, this.context)
             //this.context
         })
+        this._state = {}
+        this.context = context
+        const html = this?.render?.()?.html?.()
+        if (html) this.shadowRoot.replaceChildren(html)
+    }
+
+    connectedCallback() {
+        console.log('connected')
     }
 
     get state() {
         return this._state
     }
 
-    set state(state) {
-        if (!Array.isArray(state) && typeof state !== 'object')
+    set state(state = {}) {
+        if (!Array.isArray(state) && typeof state === 'object')
             Object.assign(this._state, state)
     }
 
-    render(html = '') {
-        return html
+    render(content = '') {
+        return content.html()
     }
 }
