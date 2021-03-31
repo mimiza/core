@@ -12,9 +12,7 @@ export default class Component extends HTMLElement {
 
     connectedCallback() {
         this.update()
-        this.addEventListener("context", e => {
-            console.log("context", e.detail, this.context, context)
-        })
+        this.addEventListener("context", console.log, { capture: true })
         console.log(this)
     }
 
