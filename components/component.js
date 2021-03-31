@@ -1,25 +1,26 @@
-import {
-    context
-} from '../framework.js'
+import { context } from "../framework.js"
 
 export default class Component extends HTMLElement {
     constructor() {
-        super()
-        this.attachShadow({
-            mode: 'open'
+        super().attachShadow({
+            mode: "open",
         })
-        this.addEventListener('context', function (e) {
-            console.log('context', e.detail, this.context)
-            //this.context
+
+        addEventListener("context", e => {
+            console.log("context", e.detail, this.context, context)
         })
+
         this._state = {}
-        this.context = context
-        const html = this?.render?.()?.html?.()
-        if (html) this.shadowRoot.replaceChildren(html)
+        this._context = context
     }
 
-    connectedCallback() {
-        console.log('connected')
+    get context() {
+        return this._context
+    }
+
+    set context(data = {}) {
+        this._context = data
+        return this.context()
     }
 
     get state() {
@@ -27,12 +28,17 @@ export default class Component extends HTMLElement {
     }
 
     set state(state = {}) {
-        if (!Array.isArray(state) && typeof state === 'object')
+        if (!Array.isArray(state) && typeof state === "object")
             Object.assign(this._state, state)
     }
 
-    render(content = '') {
-        const template = this?.template?.() || this?.template || content
-        return template?.html?.()
+    get template() {
+        return this._template
+    }
+
+    set template(content) {
+        const template = document.createElement("template")
+        template.innerHTML = this._template = content
+        this.shadowRoot.replaceChildren(template.content.cloneNode(true))
     }
 }

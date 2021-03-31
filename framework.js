@@ -1,12 +1,12 @@
-document.addEventListener("DOMContentLoaded", (e) => {
-    head()
+document.addEventListener("DOMContentLoaded", e => {
+    setHead()
     render()
 })
 
 const render = () => {}
 
 // set head
-const head = () => {
+const setHead = () => {
     var tmp
     // set charset to UTF-8
     if (!document.head.querySelector("meta[charset]")) {
@@ -30,21 +30,14 @@ export const context = {}
 
 export const setContext = (data = {}) => {
     Object.assign(context, data)
-    document.dispatchEvent(new CustomEvent('context', {
-        detail: {
-            context
-        },
-        bubbles: true,
-        composed: true
-    }))
+    document.dispatchEvent(
+        new CustomEvent("context", {
+            detail: {
+                context,
+            },
+            bubbles: true,
+            composed: true,
+        })
+    )
     return context
-}
-
-export function html(content = '') {
-    const parser = new DOMParser()
-    return parser.parseFromString(content, 'text/html').body
-}
-
-String.prototype.html = function() {
-    return html(this)
 }

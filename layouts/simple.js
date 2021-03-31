@@ -4,6 +4,9 @@ import "../components/menu.js"
 customElements.define(
     "simple-layout",
     class extends Component {
-        template = `<slot></slot><menu-component/>`
+        constructor() {
+            super()
+            this.template = `<slot/><menu-component/>`
+        }
     }
 )
