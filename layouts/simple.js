@@ -1,12 +1,11 @@
+import Component from "../components/component.js"
 import "../components/menu.js"
 
 customElements.define(
     "simple-layout",
-    class extends HTMLElement {
-        connectedCallback() {
-            this.innerHTML = `
-            <menu-component/>
-            `
+    class extends Component {
+        render() {
+            return `<menu-component/>`
         }
     }
 )
