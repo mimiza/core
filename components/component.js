@@ -1,4 +1,6 @@
-import { context } from "../framework.js"
+import {
+    context
+} from "../framework.js"
 
 export default class Component extends HTMLElement {
     constructor() {
@@ -8,12 +10,13 @@ export default class Component extends HTMLElement {
         })
         this._state = {}
         this._context = context
+        // this.update()
+        console.log('construct')
     }
 
     connectedCallback() {
         this.update()
-        this.addEventListener("context", console.log, { capture: true })
-        console.log(this)
+        console.log('connected')
     }
 
     get context() {
@@ -22,7 +25,7 @@ export default class Component extends HTMLElement {
 
     set context(data = {}) {
         this._context = data
-        return this.context()
+        return this.context
     }
 
     get state() {
@@ -45,8 +48,11 @@ export default class Component extends HTMLElement {
     }
 
     update() {
-        const template = document.createElement("template")
-        template.innerHTML = this.template
-        this.shadowRoot.replaceChildren(template.content.cloneNode(true))
+        console.log('update')
+        if (this.template) {
+            const template = document.createElement("template")
+            template.innerHTML = this.template
+            this.shadowRoot.replaceChildren(template.content.cloneNode(true))
+        }
     }
 }
