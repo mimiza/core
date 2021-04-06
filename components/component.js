@@ -1,6 +1,4 @@
-import {
-    context
-} from "../framework.js"
+import { context } from "../framework.js"
 
 export default class Component extends HTMLElement {
     constructor() {
@@ -10,13 +8,7 @@ export default class Component extends HTMLElement {
         })
         this._state = {}
         this._context = context
-        // this.update()
-        console.log('construct')
-    }
-
-    connectedCallback() {
         this.update()
-        console.log('connected')
     }
 
     get context() {
@@ -43,12 +35,11 @@ export default class Component extends HTMLElement {
 
     set template(content) {
         this._template = content || this._template
-        this.update()
         return content
     }
 
     update() {
-        console.log('update')
+        // clone template into shadowDOM
         if (this.template) {
             const template = document.createElement("template")
             template.innerHTML = this.template

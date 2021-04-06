@@ -1,7 +1,10 @@
-import Component from './component.js'
+import Component from "./component.js"
 
-customElements.define('smart-link', class extends Component {
-    render() {
-        return `<a href="/">Test</a>`
+customElements.define(
+    "smart-link",
+    class extends Component {
+        get template() {
+            return `<a href="/">Test</a>`
+        }
     }
-})
+)
