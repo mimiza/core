@@ -37,7 +37,7 @@ export const setContext = (data = {}) => {
             },
             // bubbles: true,
             // composed: true,
-            capture: true,
+            // capture: true,
         })
     )
     return context

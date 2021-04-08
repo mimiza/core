@@ -6,7 +6,17 @@ customElements.define(
     "simple-layout",
     class extends Component {
         get template() {
-            return `<slot/><menu-component/>`
+            return `
+            <simple-header>
+            <menu-component/>
+            </simple-header>
+            <simple-page>
+            Lorem ipsum
+            </simple-page>
+            <simple-footer>
+            Coded with love by mimiza
+            </simple-footer>
+            `
         }
     }
 )

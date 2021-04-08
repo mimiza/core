@@ -1,4 +1,6 @@
-import { context } from "../framework.js"
+import {
+    context
+} from "../framework.js"
 
 export default class Component extends HTMLElement {
     constructor() {
@@ -9,6 +11,7 @@ export default class Component extends HTMLElement {
         this._state = {}
         this._context = context
         this.update()
+        console.log(this.localName)
     }
 
     get context() {

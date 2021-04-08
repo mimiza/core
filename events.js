@@ -1,4 +1,8 @@
-import { randomKey } from "./utils.js"
+// This is an event bus. It helps components to communicate.
+
+import {
+    randomKey
+} from "./utils.js"
 
 const events = new Comment("event-bus")
 const subscriptions = {}
@@ -23,9 +27,9 @@ export default class Events {
     unsubscribe(id) {
         if (id)
             this.events.removeEventListener(
-                this.subscriptions?.[id]?.event,
-                this.subscriptions?.[id]?.callback
-            )
+            this.subscriptions?.[id]?.event,
+            this.subscriptions?.[id]?.callback
+        )
         else {
             // if no id, unsubscribe all subscriptions
             Object.keys(this.subscriptions).map(subscriber =>
