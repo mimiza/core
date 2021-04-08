@@ -11,14 +11,14 @@ import "https://cdn.jsdelivr.net/gh/amark/gun@latest/nts.js"
 const configURL = "https://cdn.jsdelivr.net/gh/mimiza/vanilla@main/config.json"
 
 fetch(configURL)
-    .then(response => response.json())
-    .then(config => init(config))
-    .catch(e => {
-        console.log(e)
-    })
+.then(response => response.json())
+.then(config => init(config))
+.catch(e => {})
 
 const init = config => {
-    const gun = Gun({ peers: config.peers, localStorage: false })
+    const gun = Gun({
+        peers: config.peers, localStorage: false
+    })
     const sea = Gun.SEA
     const user = gun.user()
     console.log(config, gun, sea, user)
