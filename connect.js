@@ -1,14 +1,14 @@
-import Gun from "./gun/gun.js"
-import "./gun/lib/open.js"
-import "./gun/lib/load.js"
-import "./gun/sea.js"
-import "./gun/lib/radix.js"
-import "./gun/lib/radisk.js"
-import "./gun/lib/store.js"
-import "./gun/lib/rindexed.js"
-import "./gun/nts.js"
+import "https://cdn.jsdelivr.net/gh/amark/gun@master/gun.js"
+import "https://cdn.jsdelivr.net/gh/amark/gun@master/sea.js"
+import "https://cdn.jsdelivr.net/gh/amark/gun@master/lib/open.js"
+import "https://cdn.jsdelivr.net/gh/amark/gun@master/lib/load.js"
+import "https://cdn.jsdelivr.net/gh/amark/gun@master/lib/radix.js"
+import "https://cdn.jsdelivr.net/gh/amark/gun@master/lib/radisk.js"
+import "https://cdn.jsdelivr.net/gh/amark/gun@master/lib/store.js"
+import "https://cdn.jsdelivr.net/gh/amark/gun@master/lib/rindexed.js"
+import "https://cdn.jsdelivr.net/gh/amark/gun@master/nts.js"
 
-const configURL = "https://www.mimiza.com/config.json"
+const configURL = "https://cdn.jsdelivr.net/gh/mimiza/vanilla@main/config.json"
 
 fetch(configURL)
     .then(response => response.json())
