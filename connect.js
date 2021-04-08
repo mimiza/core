@@ -21,5 +21,12 @@ const init = config => {
     })
     const sea = Gun.SEA
     const user = gun.user()
-    console.log(config, gun, sea, user)
+    // console.log(config, gun, sea, user)
+    const forms = document.querySelectorAll('form')
+    forms.forEach(form => {
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            console.log(e, this)
+        })
+    })
 }
