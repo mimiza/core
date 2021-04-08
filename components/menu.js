@@ -1,4 +1,3 @@
-import Events from "../events.js"
 import Component from "./component.js"
 import "./link.js"
 
