@@ -8,25 +8,33 @@ import "https://cdn.jsdelivr.net/gh/amark/gun@latest/lib/store.js"
 import "https://cdn.jsdelivr.net/gh/amark/gun@latest/lib/rindexed.js"
 import "https://cdn.jsdelivr.net/gh/amark/gun@latest/nts.js"
 
+// get config
+var config = {}
 const configURL = "https://cdn.jsdelivr.net/gh/mimiza/vanilla@main/config.json"
+try {
+    var request = await fetch(configURL)
+    config = (await request?.json()) || {}
+} catch {}
 
-fetch(configURL)
-.then(response => response.json())
-.then(config => init(config))
-.catch(e => {})
+const gun = Gun({
+    peers: config.peers,
+    localStorage: false,
+})
+const sea = Gun.SEA
+const user = gun.user()
 
-const init = config => {
-    const gun = Gun({
-        peers: config.peers, localStorage: false
-    })
-    const sea = Gun.SEA
-    const user = gun.user()
-    // console.log(config, gun, sea, user)
-    const forms = document.querySelectorAll('form')
-    forms.forEach(form => {
-        form.addEventListener('submit', e => {
-            e.preventDefault()
-            console.log(e, this)
+const pair = await sea.pair()
+await user.auth(pair)
+
+for (const form of document.forms) {
+    form.addEventListener("submit", function (e) {
+        e.preventDefault()
+        const formData = new FormData(this)
+        const lead = {}
+        formData.append("url", document.URL)
+        formData.forEach((v, k) => {
+            lead[k] = v
         })
+        console.log(lead)
     })
 }
