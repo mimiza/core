@@ -5,18 +5,18 @@ export const notify = ({
     autoClose,
     onClose
 }) => {
-    if (typeof window !== 'undefined')
+    if (typeof window !== "undefined")
         window.dispatchEvent(
-        new CustomEvent('notify', {
-            detail: {
-                content,
-                callback,
-                className,
-                autoClose,
-                onClose
-            }
-        })
-    )
+            new CustomEvent("notify", {
+                detail: {
+                    content,
+                    callback,
+                    className,
+                    autoClose,
+                    onClose
+                }
+            })
+        )
 }
 
 export const prompt = ({
@@ -26,38 +26,33 @@ export const prompt = ({
     autoClose,
     onClose
 }) => {
-    if (typeof window !== 'undefined')
+    if (typeof window !== "undefined")
         window.dispatchEvent(
-        new CustomEvent('prompt', {
-            detail: {
-                content,
-                callback,
-                className,
-                autoClose,
-                onClose
-            }
-        })
-    )
+            new CustomEvent("prompt", {
+                detail: {
+                    content,
+                    callback,
+                    className,
+                    autoClose,
+                    onClose
+                }
+            })
+        )
 }
 
 export const hash = async data => {
-    if (typeof window !== 'undefined') {
-        let {
-            sea
-        } = window
-        if (typeof data === 'object') data = JSON.stringify(data)
+    if (typeof window !== "undefined") {
+        let { sea } = window
+        if (typeof data === "object") data = JSON.stringify(data)
         return await sea.work(data, null, null, {
-            name: 'SHA-256'
+            name: "SHA-256"
         })
     }
 }
 
 export const signAndHash = async data => {
-    if (typeof window !== 'undefined') {
-        let {
-            sea,
-            user
-        } = window
+    if (typeof window !== "undefined") {
+        let { sea, user } = window
         if (user.is && user._ && user._.sea) {
             const signedData = await sea.sign(data, user._.sea)
 
@@ -79,21 +74,20 @@ export const signAndHash = async data => {
 }
 
 export const encodeQuery = data =>
-Object.entries(data)
-.map(_ =>
-    _.map(__ =>
-        typeof __ === 'object'
-        ? encodeURIComponent(JSON.stringify(__)): encodeURIComponent(__)
-    ).join('=')
-)
-.join('&')
+    Object.entries(data)
+        .map(_ =>
+            _.map(__ =>
+                typeof __ === "object"
+                    ? encodeURIComponent(JSON.stringify(__))
+                    : encodeURIComponent(__)
+            ).join("=")
+        )
+        .join("&")
 
 export const spintax = text => {
-    let matches,
-    options,
-    random
+    let matches, options, random
     while ((matches = /{([^{}]+?)}/.exec(text)) !== null) {
-        options = matches[1].split('|')
+        options = matches[1].split("|")
         random = Math.floor(Math.random() * options.length)
         text = text.replace(matches[0], options[random])
     }
@@ -102,26 +96,26 @@ export const spintax = text => {
 
 export const schemaToDisplay = (schema = []) => {
     var result = schema
-    .filter(
-        field =>
-        (field.area && field.area.indexOf('title') > -1) ||
-        (field.type === 'data' && field.schema)
-    )
-    .map(field => {
-        if (field.type !== 'data' && field.name) return field.name
-        if (field.type === 'data' && field.schema)
-            return schemaToDisplay(field.schema)
-    })
+        .filter(
+            field =>
+                (field.area && field.area.indexOf("title") > -1) ||
+                (field.type === "data" && field.schema)
+        )
+        .map(field => {
+            if (field.type !== "data" && field.name) return field.name
+            if (field.type === "data" && field.schema)
+                return schemaToDisplay(field.schema)
+        })
 
     return result
 }
 
 export const objectToArray = (obj = {}) => {
     let data = {},
-    keys = [],
-    tmp
+        keys = [],
+        tmp
 
-    while (typeof obj === 'object') {
+    while (typeof obj === "object") {
         if (obj.data && obj.keys) {
             try {
                 keys = JSON.parse(obj.keys)
@@ -133,7 +127,7 @@ export const objectToArray = (obj = {}) => {
         } else tmp = obj
 
         return Object.entries(tmp).map(item => {
-            if (typeof item[1] === 'object') return objectToArray(item[1])
+            if (typeof item[1] === "object") return objectToArray(item[1])
             return item[1]
         })
     }
@@ -147,9 +141,9 @@ export const randomInt = (min, max) => {
 }
 
 export const randomText = (l, c) => {
-    var s = ''
+    var s = ""
     l = l || 24 // you are not going to make a 0 length random number, so no need to check type
-    c = c || '0123456789ABCDEFGHIJKLMNOPQRSTUVWXZabcdefghijklmnopqrstuvwxyz'
+    c = c || "0123456789ABCDEFGHIJKLMNOPQRSTUVWXZabcdefghijklmnopqrstuvwxyz"
     while (l > 0) {
         s += c.charAt(Math.floor(Math.random() * c.length))
         l--
@@ -157,23 +151,24 @@ export const randomText = (l, c) => {
     return s
 }
 
-export const randomKey = int => (int || Date.now()).toString(36) + randomText(7)
+export const randomKey = int =>
+    (int || Gun.state() || Date.now()).toString(36) + randomText(7)
 
 export const randomItem = data =>
-Array.isArray(data) ? data[Math.floor(Math.random() * data.length)]: null
+    Array.isArray(data) ? data[Math.floor(Math.random() * data.length)] : null
 
-export const filterData = (data = {}, prefix = '') =>
-Object.entries(data).filter(
-    item => typeof item[0] === 'string' && item[0].indexOf(prefix) > -1
-)
+export const filterData = (data = {}, prefix = "") =>
+    Object.entries(data).filter(
+        item => typeof item[0] === "string" && item[0].indexOf(prefix) > -1
+    )
 
 export const logic = (exp, data) => {
     const isLogic = _ =>
-    typeof _ === 'object' &&
-    _ !== null &&
-    (_['AND'] || _['OR'] || _['&&'] || _['||']) &&
-    !Array.isArray(_) &&
-    Object.keys(_).length === 1
+        typeof _ === "object" &&
+        _ !== null &&
+        (_["AND"] || _["OR"] || _["&&"] || _["||"]) &&
+        !Array.isArray(_) &&
+        Object.keys(_).length === 1
 
     const ops = {
         AND: arr => {
@@ -185,7 +180,7 @@ export const logic = (exp, data) => {
             }
             return true // if all items are true
         },
-        '&&': arr => ops['AND'](arr),
+        "&&": arr => ops["AND"](arr),
         OR: arr => {
             for (let item of arr) {
                 // if item is LEX -> run match -> if true, return true
@@ -195,7 +190,7 @@ export const logic = (exp, data) => {
             }
             return false // if no item is true
         },
-        '||': arr => ops['OR'](arr)
+        "||": arr => ops["OR"](arr)
     }
     // if exp is object and has key '&&', 'AND', '||', 'OR' -> return ops(exp)
     // if exp is object and has none of above keys -> return match
